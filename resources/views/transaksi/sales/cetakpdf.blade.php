@@ -20,8 +20,8 @@
 			<tr>
             <th>#</th>
                                                     <th>Nota Id</th>
-                                                    <th>Pegawai Id</th>
-                                                    <th>Customer Id</th>
+                                                    <th>Nama Pegawai</th>
+                                                    <th>Nama Customer</th>
                                                     <th>Nota Date</th>
                                                     <th>Total Payment</th>
 			</tr>

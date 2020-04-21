@@ -112,7 +112,14 @@ class controller_salesd extends Controller
 
     public function cetak_pdf()
     {
-    	$sales=DB::table('sales')->get();
+    	$sales = DB::table('customer')
+        ->join('sales', 'customer.customer_id', '=', 'sales.customer_id')
+        ->join('pegawai', 'sales.user_id', '=', 'pegawai.user_id')
+        ->select('sales.nota_id', 
+        DB::raw('CONCAT(customer.first_name, " ", customer.last_name) as customer_id'), 
+        DB::raw('CONCAT(pegawai.first_name,  " " , pegawai.last_name) as user_id'),
+            'sales.nota_date', 'sales.total_payment')
+        ->get();
 
     	$pdf = PDF::loadview('transaksi/sales/cetakpdf',['sales'=>$sales]);
     	return $pdf->stream();
