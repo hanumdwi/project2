@@ -7,11 +7,14 @@
 <div id="page-wrapper">
 	<div class="main-page">
         <h3 class="title1">Point of Sales</h3>
+        <form method ="post" action="posstore">
+        @csrf
             <div class="form-three widget-shadow">
                     <div class="form-group">
+                    <input type="hidden" name="nota_id" value="{{$nota_id}}">
                         <label class="col-md-2 control-label">Customer Name</label>
                             <div class="col-md-3"> 
-                                <select class="form-control select" data-live-search="true">
+                                <select class="form-control select" name="customer_id" data-live-search="true">
                                     @foreach($customer as $cus)
                                         <option value="{{ $cus -> customer_id }}">{{ $cus -> first_name }}</option>
                                     @endforeach  
@@ -21,7 +24,7 @@
                     <div class="form-group">
                         <label class="col-md-2 control-label">User Name</label>
                             <div class="col-md-3">
-                            <select class="form-control select" data-live-search="true">
+                            <select class="form-control select" name="user_id" data-live-search="true">
                                     @foreach($pegawai as $u)
                                         <option value="{{ $u -> user_id }}">{{ $u -> first_name }}</option>
                                     @endforeach 
@@ -50,7 +53,7 @@
 
                     <br><br><br><br>
                     <div class="form-group">
-                        <input type="text" class="form-control" id="search" name="search" value="" placeholder="Enter Your Product Name!" onkeyup="getModal(event)">
+                        <input type="text" class="form-control" id="search" name="search" value="" placeholder="Enter Your Product Name!" onkeydown="getModal(event)">
                             <div class="form-group">
 						        <label for="focusedinput" class="col-sm-2 control-label"></label>
 								    <div class="col-sm-3">
@@ -143,11 +146,18 @@
                                                                         <th>Total
                                                                             <td id="total_payment-val"></td>
                                                                 </tr>
+
+                                                                
+
                                                             </tbody>
                                                         </table>
+                                                                <button type="submit" class="btn btn-success">Insert</button>
+                                                                <button type="submit" class="btn btn-danger">Reset</button>
+
 					                            </div>
                    
                     </div>
+                    </form>
                 </div>
                     </div> 
                                     
@@ -155,6 +165,7 @@
     function getModal(event){
         if(event.keyCode==13){
             $("#tambahModal").modal();
+            event.preventDefault();
             myFunction();
         }
     }

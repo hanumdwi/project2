@@ -48,9 +48,11 @@ Route::post('salesstore', 'transaksi\controller_sales@store');
 Route::get('salesedit{id}', 'transaksi\controller_sales@edit');
 Route::post('salesupdate', 'transaksi\controller_sales@update');
 Route::get('salesdestroy{id}', 'transaksi\controller_sales@destroy');
+Route::get('salescetak_pdf', 'transaksi\controller_sales@cetak_pdf');
 
-Route::get('dsalesindex', 'transaksi\controller_detail_sales@index');
 Route::get('salesdcreate', 'transaksi\controller_salesd@create');
+Route::get('salesdcetak_pdf', 'transaksi\controller_salesd@cetak_pdf');
+Route::post('posstore', 'transaksi\controller_salesd@store');
 Route::get('detail_sales/edit', 'transaksi\controller_detail_sales@edit');
 Route::get('detail_sales/destroy', 'transaksi\controller_detail_sales@destroy');
 

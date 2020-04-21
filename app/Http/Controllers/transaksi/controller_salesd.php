@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Pegawai;
+use PDF;
 
 class controller_salesd extends Controller
 {
@@ -30,8 +31,20 @@ class controller_salesd extends Controller
         $pegawai = Pegawai::all();
         $categories = DB::table('categories')->get();
         $product = DB::table('product')->get();
+        $sales = DB::table('sales')->get();
         // $detail_sales = DB::table('detail_sales')->get();
-        return view('transaksi/salesd/create',['customer'=>$customer, 'pegawai'=>$pegawai, 'categories' =>$categories, 'product'=>$product]);
+        $max = DB::table('sales')->max('nota_id');
+        date_default_timezone_set('Asia/Jakarta');
+        $date=date("ymd",time());
+
+        $max=substr($max,6);
+        if($max>=1){
+            $nota_id=$date.str_pad($max+1,4,"a",STR_PAD_LEFT);
+        }
+        else{
+            $nota_id=$date.str_pad(1,4,"0",STR_PAD_LEFT);
+        }
+        return view('transaksi/salesd/create',['customer'=>$customer, 'pegawai'=>$pegawai, 'categories' =>$categories, 'product'=>$product, 'sales'=>$sales, 'nota_id'=>$nota_id]);
     }
 
     /**
@@ -42,15 +55,25 @@ class controller_salesd extends Controller
      */
     public function store(Request $request)
     {
-        $sales_detail = new sales_detail;
+        DB::table('sales')->insert([
+            'customer_id' => $request->customer_id,
+            'user_id' => $request->user_id,
+            'nota_date' => $request->nota_date,
+            'total_payment' => $request->total_payment
+        ]);
 
-        $sales_detail->fill([
-           
-             ]);
-     
-             $sales_detail->save();
-
-             return redirect('salesdcreate');
+        foreach($request['product_id'] as $product){
+            DB::table('sales_detail')->insert([
+                'nota_id' => $request->nota_id,
+                'product_id' => $product,
+                'quantity' => $request['jumlah'][$product],
+                'selling_price' => $request['selling_price'][$product],
+                'discount' => $request['discount'][$product],
+                'total_price' => $request['total'][$product]
+            ]);
+        }
+        
+             return redirect('salesdcreate')->with('insert','data berhasil di tambah');
     }
 
     /**
@@ -87,14 +110,11 @@ class controller_salesd extends Controller
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy()
+    public function cetak_pdf()
     {
-        return "Ini Halaman Destroy";
+    	$sales=DB::table('sales')->get();
+
+    	$pdf = PDF::loadview('transaksi/sales/cetakpdf',['sales'=>$sales]);
+    	return $pdf->stream();
     }
 }

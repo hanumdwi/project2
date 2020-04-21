@@ -119,4 +119,12 @@ class controller_sales extends Controller
         DB::table('sales')->where('nota_id','=', $id)->delete();
         return redirect( 'salesindex' );
     }
+
+    public function cetak_pdf()
+    {
+    	$sales = sales::all();
+ 
+    	$pdf = PDF::loadview('sales_pdf',['sales'=>$sales]);
+    	return $pdf->download('laporan-sales-pdf');
+    }
 }

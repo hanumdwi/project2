@@ -9,7 +9,7 @@
     <h3 class="title1">Daftar Sales</h3>
 <div class="table-responsive">
     <table class="table table-bordered table-striped table-actions">
-    <a href="salescreate" class="btn btn-primary my-3">Tambah Data Sales</a>  
+    <a href="salesdcetak_pdf" class="btn btn-primary my-3">CETAK PDF</a>  
     </table>
 </div>
 
