@@ -12,11 +12,8 @@
             <div class="form-three widget-shadow">
             <div class="form-group">
                         <label class="col-md-2 control-label">Nota Date</label>
-                            <div class="col-md-3" name="nota_date">         
-                                <?php
-                                    $tgl=date('l, d-m-Y');
-                                    echo $tgl;
-                                ?>       
+                            <div class="col-md-3" name="nota_date" data-live-search="true">         
+                            <input type="date" class="form-control" id="nota_date" name="nota_date">    
                             </div><br><br>
                     <div class="form-group">
                     <input type="hidden" name="nota_id" value="{{$nota_id}}">
@@ -37,7 +34,7 @@
                                         <option value="{{ $u -> user_id }}">{{ $u -> first_name }}</option>
                                     @endforeach 
                                 </select> 
-                            </div><br>
+                            </div>
                     </div>
 
                     

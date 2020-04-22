@@ -25,6 +25,7 @@ class controller_sales extends Controller
         DB::raw('CONCAT(pegawai.first_name,  " " , pegawai.last_name) as user_id'),
             'sales.nota_date', 'sales.total_payment')
         ->get();
+       
         //dump($sales);
         return view('transaksi/sales/index', ['sales'=>$sales]);
     }
