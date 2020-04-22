@@ -4,11 +4,12 @@
 Route::get('/', function () {
     return view('bismillah');
 });
-//Route::get('sembarang', 'CheckoutController@GetAddress');
+
 Route::get('login', 'AuthController@login');
 Route::post('postlogin', 'AuthController@postlogin');
 Route::get('logout', 'AuthController@logout');
 Route::get('register', 'AuthController@register');
+
 Route::get('sembarang', 'MyFirstController@index');
 
 Route::get('customerindex', 'master\controller_customer@index');

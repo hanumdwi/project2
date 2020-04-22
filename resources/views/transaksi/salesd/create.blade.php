@@ -10,6 +10,14 @@
         <form method ="post" action="posstore">
         @csrf
             <div class="form-three widget-shadow">
+            <div class="form-group">
+                        <label class="col-md-2 control-label">Nota Date</label>
+                            <div class="col-md-3" name="nota_date">         
+                                <?php
+                                    $tgl=date('l, d-m-Y');
+                                    echo $tgl;
+                                ?>       
+                            </div><br><br>
                     <div class="form-group">
                     <input type="hidden" name="nota_id" value="{{$nota_id}}">
                         <label class="col-md-2 control-label">Customer Name</label>
@@ -19,7 +27,7 @@
                                         <option value="{{ $cus -> customer_id }}">{{ $cus -> first_name }}</option>
                                     @endforeach  
                                 </select>
-                            </div><br><br>
+                            </div>
                             
                     <div class="form-group">
                         <label class="col-md-2 control-label">User Name</label>
@@ -32,11 +40,7 @@
                             </div><br>
                     </div>
 
-                    <div class="form-group">
-                        <label class="col-md-2 control-label">Nota Date</label>
-                            <div class="col-md-3">                   
-                                <input type="date" class="form-control" id="nota_date" name="nota_date" />
-                            </div> 
+                    
 
                     <!-- <div class="form-group">
                         <label class="col-md-2 control-label">Category Name</label>
@@ -217,7 +221,7 @@
 	      <input type='hidden' name='product_id["+id+"]' value="+id+" readonly id='product_id"+id+"'></div>\
 	  </td>\
 	  \
-	  <td style='width: 15%;' class='align-middle'>\
+	  <td style='width: 20%;' class='align-middle'>\
 	    <div class='row justify-content-center'>\
       <button class='dec btn btn-sm btn-danger' type='button' onclick='dec(\""+id+"\")'>-</button>\
 	    	<input type='number' style='background-color:#f5f5f5; -moz-appearance: textfield; width: 20%; border:1px;text-align: center;' class='quantity' oninput='recount("+id+")' name='jumlah["+id+"]' min='1' id='jumlah"+id+"'required max='"+stock+"' value='1'>\
