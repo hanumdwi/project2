@@ -124,4 +124,10 @@ class controller_salesd extends Controller
     	$pdf = PDF::loadview('transaksi/sales/cetakpdf',['sales'=>$sales]);
     	return $pdf->stream();
     }
+
+    public function loadData(Request $request)
+    {
+        $product=DB::table('product')->where('product_name','like','%'.$request->key.'%')->get();
+        return response()->json(['product'=>$product]);
+    }
 }

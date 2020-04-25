@@ -54,6 +54,8 @@ Route::get('salescetak_pdf', 'transaksi\controller_sales@cetak_pdf');
 Route::get('salesdcreate', 'transaksi\controller_salesd@create');
 Route::get('salesdcetak_pdf', 'transaksi\controller_salesd@cetak_pdf');
 Route::post('posstore', 'transaksi\controller_salesd@store');
+Route::post('cari', 'transaksi\controller_salesd@loadData');
+
 Route::get('detail_sales/edit', 'transaksi\controller_detail_sales@edit');
 Route::get('detail_sales/destroy', 'transaksi\controller_detail_sales@destroy');
 

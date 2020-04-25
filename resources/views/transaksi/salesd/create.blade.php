@@ -165,14 +165,49 @@
 <script>
     function getModal(event){
         if(event.keyCode==13){
-            $("#tambahModal").modal();
+            var key = document.getElementById('search').value;
             event.preventDefault();
-            myFunction();
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                type:"POST",
+                url:"cari",
+                data:{
+                    "key":key,
+                    "_token": "{{ csrf_token() }}",
+                },
+            success : function(results){
+                console.log(JSON.stringify(results));
+                var tab = $('#tabelproduk').DataTable();
+                tab.clear().draw();
+
+                for(let i=0; i<results.product.length; i++){
+                    $('#tabelproduk').DataTable().row.add([
+                        '<input type="checkbox" id="as'+results.product[i]['product_id']+'">',
+                        results.product[i]['product_name'],
+                        results.product[i]['product_price'],
+                        results.product[i]['product_stock'],
+                    ]).node().id = 'row'+results.product[i]['product_id'];
+                    $('#tabelproduk').DataTable().draw();
+                }
+                $("#tambahModal").modal();
+            },
+            error: function(data){
+                console.log(data);
+            }
+            });
         }
     }
+
     function tampil_modal(){
       $("#tambahModal").modal();
     }
+
     function myFunction() {
      document.getElementById("search").value='';
     }
@@ -189,16 +224,6 @@
               $("#tabelproduk tbody tr#row"+ids[i]).hide();
           }
         });
-            //function agar di klik row mana saja bsa ke ceklis
-        // $('#tabelproduk tr').click(function() {
-        //     var check = $(this).find("input[type=checkbox]");
-        //     if (check.prop("checked") == true) {
-        //       check.prop("checked", false);
-        //     }
-        //     else{
-        //       check.prop("checked", true);
-        //     }
-        // });
       });
     var products = <?php echo json_encode($product); ?>;
   function addRow(id){

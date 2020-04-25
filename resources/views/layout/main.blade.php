@@ -53,6 +53,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 <script src="asset/web/js/custom.js"></script>
 <link href="asset/web/css/custom.css" rel="stylesheet">
 <!--//Metis Menu -->
+<script src="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css"></script>
 </head> 
 <body class="cbp-spmenu-push">
 	<!-- <div class="main-content"> -->
@@ -285,7 +286,8 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 		<!-- //header-ends -->
 		<!-- main content start-->
 		<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-		
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
 		<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
         @yield('container')
 
@@ -310,7 +312,6 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 				disableOther( 'showLeftPush' );
 			};
 			
-
 			function disableOther( button ) {
 				if( button !== 'showLeftPush' ) {
 					classie.toggle( showLeftPush, 'disabled' );
