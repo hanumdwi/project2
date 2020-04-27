@@ -10,6 +10,7 @@ class Pegawai extends Model
 
     protected $fillable = 
     [
+    'id_pegawai',
     'first_name',
     'last_name',
     'username',

@@ -3,7 +3,8 @@
 @section('title', 'Point of Sales')
 
 @section('container')
-   
+
+@if(\Session::has('kasir') || \Session::has('admin'))
 <div id="page-wrapper">
 	<div class="main-page">
         <h3 class="title1">Point of Sales</h3>
@@ -437,5 +438,5 @@ function money(text){
         }
     swal("Welcome to Point of Sales!", "You clicked the button!", "success");
 </script>
-
+@endif
 @endsection

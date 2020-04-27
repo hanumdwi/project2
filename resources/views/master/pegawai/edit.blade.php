@@ -4,6 +4,7 @@
 
 @section('container')
 
+@if(\Session::has('kasir') || \Session::has('admin'))
 <div id="page-wrapper">
 	<div class="main-page">
     <h3 class="title1">Edit Data Pegawai :</h3>
@@ -19,7 +20,7 @@
         <div class="col-md-9">                                            
             <div class="input-group">
                 <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
-                    <input type="text" class="form-control" id="firstname" name="firstname" value="{{ $u->first_name }}"><br/></div>                                            
+                    <input type="text" class="form-control" id="first_name" name="first_name" value="{{ $u->first_name }}"><br/></div>                                            
                         <span class="help-block"></span>
                             </div>
                                 </div>
@@ -30,7 +31,7 @@
         <div class="col-md-9">                                            
             <div class="input-group">
                 <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
-                    <input type="text" class="form-control" id="lastname" name="lastname" value="{{ $u->last_name }}"><br/></div>                                            
+                    <input type="text" class="form-control" id="last_name" name="last_name" value="{{ $u->last_name }}"><br/></div>                                            
                         <span class="help-block"></span>
                             </div>
                                 </div>
@@ -94,8 +95,11 @@
         <div class="col-md-9">                                            
             <div class="input-group">
                 <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
-                    <input type="text" class="form-control" id="jobstatus" name="jobstatus" value="{{ $u->job_status }}"><br/></div>                                            
-                        <span class="help-block"></span>
+                <select name="job_status" class="form-control" id="job_status">
+                        <option selected="selected">--Pilih--</option>
+                        <option>Admin</option>
+                        <option>Kasir</option>
+                    </select><br/></div>                
                             </div>
                                 </div>
 
@@ -104,5 +108,5 @@
 		<button type="submit" class="btn btn-info mt-3">Simpan Data</button>
 	</form>
 	@endforeach
-
+@endif
 @endsection

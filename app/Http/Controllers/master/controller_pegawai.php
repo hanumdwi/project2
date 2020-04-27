@@ -5,6 +5,9 @@ namespace App\Http\Controllers\master;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Str;
 use App\Pegawai;
 
 class controller_pegawai extends Controller
@@ -16,10 +19,15 @@ class controller_pegawai extends Controller
      */
     public function index()
     {
+        if(!Session::get('login')){
+            return redirect('login');
+        }
+        else{
         $pegawai = Pegawai::all();
         //dump($pegawai);
         return view ('master/pegawai/index',['pegawai' =>$pegawai]);
     }
+}
 
     /**
      * Show the form for creating a new resource.
@@ -132,5 +140,40 @@ class controller_pegawai extends Controller
 		
 		// alihkan halaman ke halaman pegawai
 		return redirect('pegawaiindex');
+    }
+
+    public function login(){
+        return view('login');
+    }
+
+    public function postlogin(Request $request)
+    {
+        $email = $request->email;
+        $password = $request->password;
+
+        $data = pegawai::where('email',$email)->first();
+        if($data){
+            if($data->password==$password){
+                Session::put('coba',$data->first_name);
+                Session::put('coba1',$data->job_status);
+                    Session::put('login', TRUE);
+                    if($data->job_status == 'Admin'){
+                        Session::put('admin', TRUE);
+                    }
+                    if($data->job_status == 'Kasir'){
+                        Session::put('kasir', TRUE);
+                    }
+                    return redirect('sembarang');
+            }
+            else{
+                return redirect('login');
+            }
+        }
+       
+    }
+
+    public function logout(){
+        Session::flush();
+        return redirect('login');
     }
 }

@@ -4,6 +4,7 @@
 
 @section('container')
 
+@if(\Session::has('kasir') || \Session::has('admin'))
 <div id="page-wrapper">
 	<div class="main-page">
     <h3 class="title1">Edit Data Sales :</h3>
@@ -65,7 +66,7 @@
 		<button type="submit" class="btn btn-info mt-3">Simpan Data</button>
 	</form>
 	@endforeach
-
+@endif
 @endsection
 
 	

@@ -5,6 +5,8 @@ namespace App\Http\Controllers\transaksi;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 use App\Pegawai;
 use PDF;
 
@@ -27,6 +29,10 @@ class controller_salesd extends Controller
      */
     public function create()
     {
+        if(!Session::get('login')){
+            return redirect('login');
+        }
+        else{
         $customer = DB::table('customer')->get();
         $pegawai = Pegawai::all();
         $categories = DB::table('categories')->get();
@@ -46,6 +52,7 @@ class controller_salesd extends Controller
         }
         return view('transaksi/salesd/create',['customer'=>$customer, 'pegawai'=>$pegawai, 'categories' =>$categories, 'product'=>$product, 'sales'=>$sales, 'nota_id'=>$nota_id]);
     }
+}
 
     /**
      * Store a newly created resource in storage.

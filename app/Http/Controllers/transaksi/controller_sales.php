@@ -5,6 +5,8 @@ namespace App\Http\Controllers\transaksi;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 use App\customer;
 
 
@@ -17,6 +19,10 @@ class controller_sales extends Controller
      */
     public function index()
     {
+        if(!Session::get('login')){
+            return redirect('login');
+        }
+        else{
         $sales = DB::table('customer')
         ->join('sales', 'customer.customer_id', '=', 'sales.customer_id')
         ->join('pegawai', 'sales.user_id', '=', 'pegawai.user_id')
@@ -29,6 +35,7 @@ class controller_sales extends Controller
         //dump($sales);
         return view('transaksi/sales/index', ['sales'=>$sales]);
     }
+}
 
     /**
      * Show the form for creating a new resource.

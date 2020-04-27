@@ -2,6 +2,7 @@
 
 @section('container')
 
+@if(\Session::has('kasir') || \Session::has('admin'))
 <div id="page-wrapper">
 	<div class="main-page">
     <h3 class="title1">Input Data Product</h3>
@@ -70,4 +71,5 @@
                     
                 </div>
                 <!-- END PAGE CONTENT WRAPPER -->  
+                @endif
                 @endsection

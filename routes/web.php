@@ -5,11 +5,13 @@ Route::get('/', function () {
     return view('bismillah');
 });
 
-Route::get('login', 'AuthController@login');
-Route::post('postlogin', 'AuthController@postlogin');
-Route::get('logout', 'AuthController@logout');
+Route::get('login', 'master\controller_pegawai@login');
+Route::post('postlogin', 'master\controller_pegawai@postlogin');
+
+Route::get('logout', 'master\controller_pegawai@logout');
 Route::get('register', 'AuthController@register');
 
+// Route::group(['middleware'=> ['auth','CheckRole:admin']],function(){
 Route::get('sembarang', 'MyFirstController@index');
 
 Route::get('customerindex', 'master\controller_customer@index');
@@ -61,4 +63,21 @@ Route::get('detail_sales/destroy', 'transaksi\controller_detail_sales@destroy');
 
 Route::get('detilsales', 'transaksi\controller_detail_sales@index');
 
+// });
 
+// Route::group(['middleware'=> ['auth','CheckRole:admin,kasir']],function(){
+//     Route::get('sembarang', 'MyFirstController@index');
+//     Route::get('salesindex', 'transaksi\controller_sales@index');
+//     Route::get('salescreate', 'transaksi\controller_sales@create');
+//     Route::post('salesstore', 'transaksi\controller_sales@store');
+//     Route::get('salesedit{id}', 'transaksi\controller_sales@edit');
+//     Route::post('salesupdate', 'transaksi\controller_sales@update');
+//     Route::get('salesdestroy{id}', 'transaksi\controller_sales@destroy');
+//     Route::get('salescetak_pdf', 'transaksi\controller_sales@cetak_pdf');
+
+//     Route::get('salesdcreate', 'transaksi\controller_salesd@create');
+//     Route::get('salesdcetak_pdf', 'transaksi\controller_salesd@cetak_pdf');
+//     Route::post('posstore', 'transaksi\controller_salesd@store');
+//     Route::post('cari', 'transaksi\controller_salesd@loadData');
+
+// });

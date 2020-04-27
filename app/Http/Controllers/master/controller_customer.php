@@ -5,6 +5,8 @@ namespace App\Http\Controllers\master;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 
 class controller_customer extends Controller
 {
@@ -15,10 +17,15 @@ class controller_customer extends Controller
      */
     public function index()
     {
+        if(!Session::get('login')){
+            return redirect('login');
+        }
+        else{
         $customer = DB::table('customer')->get();
         //dump($customer);
         return view ('master/customer/index',['customer' =>$customer]);
     }
+}
 
     /**
      * Show the form for creating a new resource.

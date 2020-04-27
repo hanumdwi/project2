@@ -2,6 +2,7 @@
 
 @section('container')
 
+@if(\Session::has('kasir') || \Session::has('admin'))
 <div id="page-wrapper">
 	<div class="main-page">
     <h3 class="title1">Input Data Customer</h3>
@@ -119,11 +120,13 @@
                     </div>                    
                     
                 </div>
+                
                 <script>
                 function create(id){
              const z=document.getElementById(id);
              swal("Data Berhasil di Tambahkan!", "You clicked the button!", "success");
-            
+                }
                 </script>
-                <!-- END PAGE CONTENT WRAPPER -->  
+
+                @endif
                 @endsection

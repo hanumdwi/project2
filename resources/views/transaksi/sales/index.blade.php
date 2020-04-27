@@ -4,6 +4,7 @@
 
 @section('container')
 
+@if(\Session::has('kasir') || \Session::has('admin'))
 <div id="page-wrapper">
 	<div class="main-page">
     <h3 class="title1">Daftar Sales</h3>
@@ -93,4 +94,5 @@
    <script>
     swal("Welcome to Sales!", "You clicked the button!", "success");
    </script>
+@endif
 @endsection

@@ -5,6 +5,8 @@ namespace App\Http\Controllers\master;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 use App\Product;
 
 class controller_product extends Controller
@@ -16,6 +18,10 @@ class controller_product extends Controller
      */
     public function index()
     {
+        if(!Session::get('login')){
+            return redirect('login');
+        }
+        else{
         $product = DB::table('product')
         ->join('categories','product.category_id', '=', 'categories.category_id')
         ->select('categories.category_name','product.product_id','product.product_name', 'product.product_price', 'product.product_stock', 'product.explanation','product.status')
@@ -23,6 +29,7 @@ class controller_product extends Controller
 
         return view ('master/product/index',['product' =>$product]);
     }
+}
 
     /**
      * Show the form for creating a new resource.

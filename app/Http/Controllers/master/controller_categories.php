@@ -5,6 +5,8 @@ namespace App\Http\Controllers\master;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 
 class controller_categories extends Controller
 {
@@ -15,10 +17,15 @@ class controller_categories extends Controller
      */
     public function index()
     {
+        if(!Session::get('login')){
+            return redirect('login');
+        }
+        else{
         $categories = DB::table('categories')->get();
         $product = DB::table('product')->get();
         //dump($categories);
         return view ('master/categories/index',['categories' =>$categories], ['product'=>$product]);
+        }
     }
 
     /**

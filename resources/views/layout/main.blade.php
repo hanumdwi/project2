@@ -69,6 +69,10 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 							<a href="salesdcreate"><i class="fa fa-book nav_icon"></i>Point of Sales</a>
 						</li>
 								<li>
+									<a href="salesindex"><i class="fa fa-file-text-o nav_icon"></i>Sales</a>
+								</li>
+								@if(\Session::has('admin'))
+								<li>
 									<a href="customerindex"><i class="fa fa-table nav_icon"></i>Customer</a>
 								</li>
 								<li>
@@ -80,13 +84,9 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 								<li>
 									<a href="productindex"><i class="fa fa-th-large nav_icon"></i>Product</span></a>
 								</li>
+								@endif
 						
 						
-						
-								
-								<li>
-									<a href="salesindex"><i class="fa fa-file-text-o nav_icon"></i>Sales</a>
-								</li>
                     </ul>
 					<!-- //sidebar-collapse -->
 				</nav>
@@ -263,8 +263,8 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 								<div class="profile_img">	
 									<span class="prfil-img"><img src="images/a.png" alt=""> </span> 
 									<div class="user-name">
-										<p>Hanum</p>
-										<span>Administrator</span>
+										<p>{{Session::get('coba')}}</p>
+										<span>Welcome...</span>
 									</div>
 									<i class="fa fa-angle-down lnr"></i>
 									<i class="fa fa-angle-up lnr"></i>
