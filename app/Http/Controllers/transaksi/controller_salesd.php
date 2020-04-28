@@ -45,11 +45,12 @@ class controller_salesd extends Controller
 
         $max=substr($max,6);
         if($max>=1){
-            $nota_id=$date.str_pad($max+1,4,"a",STR_PAD_LEFT);
+            $nota_id=$date.str_pad($max+1,4,"0",STR_PAD_LEFT);
         }
         else{
             $nota_id=$date.str_pad(1,4,"0",STR_PAD_LEFT);
         }
+
         return view('transaksi/salesd/create',['customer'=>$customer, 'pegawai'=>$pegawai, 'categories' =>$categories, 'product'=>$product, 'sales'=>$sales, 'nota_id'=>$nota_id]);
     }
 }
@@ -62,24 +63,31 @@ class controller_salesd extends Controller
      */
     public function store(Request $request)
     {
-        DB::table('sales')->insert([
-            'customer_id' => $request->customer_id,
-            'user_id' => $request->user_id,
-            'nota_date' => $request->nota_date,
-            'total_payment' => $request->total_payment
-        ]);
-
-        foreach($request['product_id'] as $product){
-            DB::table('sales_detail')->insert([
-                'nota_id' => $request->nota_id,
-                'product_id' => $product,
-                'quantity' => $request['jumlah'][$product],
-                'selling_price' => $request['selling_price'][$product],
-                'discount' => $request['discount'][$product],
-                'total_price' => $request['total'][$product]
+        DB::beginTransaction();
+        try{
+            DB::table('sales')->insert([
+                'customer_id' => $request->customer_id,
+                'user_id' => $request->user_id,
+                'nota_date' => $request->nota_date,
+                'total_payment' => $request->total_payment
             ]);
+
+            foreach($request['product_id'] as $product){
+                DB::table('sales_detail')->insert([
+                    'nota_id' => $request->nota_id,
+                    'product_id' => $product,
+                    'quantity' => $request['jumlah'][$product],
+                    'selling_price' => $request['selling_price'][$product],
+                    'discount' => $request['discount'][$product],
+                    'total_price' => $request['total'][$product]
+                ]);
+            }
+        DB::commit();
         }
-        
+        Catch (\Exception $ex){
+            DB::rollback();
+            throw $ex;
+        }
              return redirect('salesdcreate')->with('insert','data berhasil di tambah');
     }
 

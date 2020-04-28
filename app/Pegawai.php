@@ -20,6 +20,14 @@ class Pegawai extends Model
     'job_status'
     ];
 
+    protected $hidden = [
+        'password', 'remember_token',
+    ];
+    
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+    ];
+
     public $timestamps = false;
 
 }

@@ -7,7 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
-use App\customer;
+use App\pegawai;
+use App\product;
 
 
 class controller_sales extends Controller
@@ -23,17 +24,18 @@ class controller_sales extends Controller
             return redirect('login');
         }
         else{
-        $sales = DB::table('customer')
-        ->join('sales', 'customer.customer_id', '=', 'sales.customer_id')
-        ->join('pegawai', 'sales.user_id', '=', 'pegawai.user_id')
-        ->select('sales.nota_id', 
-        DB::raw('CONCAT(customer.first_name, " ", customer.last_name) as customer_id'), 
-        DB::raw('CONCAT(pegawai.first_name,  " " , pegawai.last_name) as user_id'),
-            'sales.nota_date', 'sales.total_payment')
-        ->get();
+            $sales = DB::table('sales')
+            ->join('pegawai','pegawai.user_id','=','sales.user_id')
+            ->join('customer','customer.customer_id','=','sales.customer_id')
+            ->select('sales.nota_id','pegawai.first_name as USFIRST_NAME','pegawai.last_name as USLAST_NAME','customer.first_name','customer.last_name','sales.nota_date','sales.total_payment')
+            ->get();
+
+        $sales_detail = DB::table('sales_detail')
+                        ->join('product','product.product_id','=','sales_detail.product_id')
+                        ->get();
        
         //dump($sales);
-        return view('transaksi/sales/index', ['sales'=>$sales]);
+        return view('transaksi/sales/index', ['sales'=>$sales],['sales_detail' => $sales_detail]);
     }
 }
 
