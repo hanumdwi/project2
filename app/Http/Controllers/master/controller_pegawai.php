@@ -70,13 +70,13 @@ class controller_pegawai extends Controller
     public function store(Request $request)
     {
         DB::table('pegawai')->insert([
-            'first_name'   => $request->firstname,
-            'last_name'    => $request->lastname,
+            'first_name'   => $request->first_name,
+            'last_name'    => $request->last_name,
             'username'     => $request->username,
             'phone'        => $request->phone,
             'email'        => $request->email,
             'password'     => $request->password,
-            'job_status'   => $request->jobstatus
+            'job_status'   => $request->job_status
              ]);
      
              return redirect('pegawaiindex');
@@ -116,13 +116,13 @@ class controller_pegawai extends Controller
     public function update(Request $request)
     {
         $pegawai = Pegawai::where('user_id', $request->id)->update([
-            'first_name'   => $request->firstname,
-            'last_name'    => $request->lastname,
+            'first_name'   => $request->first_name,
+            'last_name'    => $request->last_name,
             'username'     => $request->username,
             'phone'        => $request->phone,
             'email'        => $request->email,
             'password'     => $request->password,
-            'job_status'   => $request->jobstatus
+            'job_status'   => $request->job_status
         ]);
      
              return redirect('pegawaiindex');

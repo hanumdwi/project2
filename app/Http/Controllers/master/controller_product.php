@@ -50,19 +50,15 @@ class controller_product extends Controller
      */
     public function store(Request $request)
     {
-        $product = new product;
-
-        $product->fill([
+        DB::table('product')->insert([
             'category_id'       => $request->category_id,
             'product_name'     =>  $request->product_name,
             'product_price'     => $request->product_price,
             'product_stock'     => $request->product_stock,
             'explanation'       => $request->explanation
              ]);
-     
-             $product->save();
-
              return redirect('productindex');
+            
     }
 
     /**
@@ -84,9 +80,8 @@ class controller_product extends Controller
      */
     public function edit($id)
     {
-
         $categories = DB::table('categories')->get();
-        $product = Product::where('product_id', $id)->get();
+        $product = DB::table('product')->where('product_id', $id)->get();
 		// passing data product yang didapat ke view edit.blade.php
 		return view('master.product.edit',['product' => $product], ['categories' => $categories]);
     }
