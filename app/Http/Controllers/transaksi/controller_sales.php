@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use App\pegawai;
 use App\product;
+use PDF;
 
 
 class controller_sales extends Controller
@@ -136,5 +137,20 @@ class controller_sales extends Controller
  
     	$pdf = PDF::loadview('sales_pdf',['sales'=>$sales]);
     	return $pdf->download('laporan-sales-pdf');
+    }
+
+    public function invoice($id)
+    {
+        $pegawai=DB::table('pegawai')->get();
+        $customer = DB::table('customer')->get();
+        $pegawai = DB::table('pegawai')->get();
+        $product = DB::table('product')->get();
+        $sales = DB::table('sales',$id)->get();
+        $sales_detail = DB::table('sales_detail')->get();
+        $nota_id=$id;
+        $pdf = PDF::loadview('transaksi/sales/invoice_pdf',['id'=>$nota_id, 'sales'=>$sales, 'customer'=> $customer,
+         'pegawai'=> $pegawai, 'product'=> $product, 'sales_detail' => $sales_detail],
+        compact('invoice'))->setPaper('a4', 'landscape');
+        return $pdf->stream('invoice-pdf');
     }
 }

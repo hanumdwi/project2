@@ -52,6 +52,8 @@ Route::get('salesedit{id}', 'transaksi\controller_sales@edit');
 Route::post('salesupdate', 'transaksi\controller_sales@update');
 Route::get('salesdestroy{id}', 'transaksi\controller_sales@destroy');
 Route::get('salescetak_pdf', 'transaksi\controller_sales@cetak_pdf');
+Route::get('salesinvoice_pdf{id}', 'transaksi\controller_sales@invoice');
+
 
 Route::get('salesdcreate', 'transaksi\controller_salesd@create');
 Route::get('salesdcetak_pdf', 'transaksi\controller_salesd@cetak_pdf');

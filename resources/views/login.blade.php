@@ -20,10 +20,7 @@
 				<form class="form-auth" action="postlogin" method="post">
                 @csrf
 					<h3>Login</h3>
-                    <div class="container">
-                    <div class="login-top">
-						<h4>Not a Member? <a href="register">  Sign Up »</a> </h4>
-					</div></div><br><br>
+                  
                     
 					<div class="form-holder">
 						<span class="lnr lnr-envelope"></span>
